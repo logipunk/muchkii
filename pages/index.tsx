@@ -12,7 +12,8 @@ const Home: NextPage = () => {
 
     <div className="vimeo-wrapper contrast-20"> 
   <iframe src="https://player.vimeo.com/video/230160738?background=1&autoplay=1&loop=1&byline=0&title=0"
-           frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+           frameBorder="0"    ></iframe>
+{/* webkitallowfullscreen mozallowfullscreen allowfullscreen*/}
     </div>
   <div>
   <h1 className="font-light text-6xl">full Hero Video</h1>
