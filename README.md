@@ -25,3 +25,15 @@ pnpm create next-app --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+
+
+###SANITY URL 
+https://muchkii.sanity.studio/
+
+###Third Web 
+contract name: Muchkii on Open Sea
+contract network name: Goerli
+contract address: 0x65F130c4Ab508E239305c78daea4385E004b471e
+
+
