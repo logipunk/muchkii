@@ -6,6 +6,7 @@ import { sanityClient, urlFor } from '../sanity'
 import { Collection } from '../typings'
 import Link from 'next/link';
 
+
 interface Props{
   collections: Collection[]
 }
@@ -36,7 +37,7 @@ const Home = ({collections}:Props) => {
           <img className='h-96 w-60 rounded-2xl object-cover' src={urlFor(collection.mainImage).url()} alt=""/>
           <div className='p-5'>
             <h2 className='text-3xl'>{collection.title}</h2>
-            <p className='mt-2 text-sm text-gray-500'>{collection.description}</p>
+            <p className='mt-2 text-sm text-gray-500'>{collection.description}{collection.contractAddr}</p>
           </div>
         </div>
         </Link>
@@ -64,7 +65,7 @@ export const getServerSideProps:GetServerSideProps= async () => {
   const query=`*[_type =="collection"]{
     _id,
     title,
-    smartcontractaddress,
+    contractAddr,
     nftCollectionName,
     description,
     mainImage{

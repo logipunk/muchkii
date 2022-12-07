@@ -20,7 +20,7 @@ export interface Collection{
     _id:string
   title:string
   description:string
-  smartcontractaddress:string
+  contractAddr:string
   nftCollectionName:string
   mainImage:Image
   previewImage:Image
@@ -29,3 +29,4 @@ export interface Collection{
   }
   creator: Creator
 }
+
