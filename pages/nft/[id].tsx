@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import HomeIMG from 'vids/home.jpg'
+import OpenSeaIMG from 'vids/OpenSea-Blue.png'
 import { ConnectWallet, 
         useAddress, 
         useContract, 
@@ -51,7 +52,7 @@ function NFTDropPage({collection}: Props)
     //getting NFT claim conditions
     const { data: claimCondition  } = useClaimConditions(contract)
 
-    
+
 
     //use to mint NFTs
     const {mutate: mintMyNFT} = useMintNFT(contract)
@@ -123,11 +124,59 @@ return (
             ):(
                 
             <main>
+                <hr className='my-2 border'/>
                 <div>
-                
+                <h1 className='text-2xl font-bold font-mono'>My NFTs</h1>
                 </div>
                 <div className='grid  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4'>
                     {nfts?.map((nft)=>(
+                        nft.owner !== '0x0000000000000000000000000000000000000000' ?(
+                            nft.owner === wallet_address ? (
+                        <div className='flex flex-col items-center rounded-xl p-1 bg-slate-500/20 shadow-slate-600 shadow-2xl cursor-pointer'>
+                             <RModalImage className='h-96 w-60 rounded-2xl object-cover' hideDownload='true'
+                              small={nft.metadata.image?.toString()}
+                              large={nft.metadata.image?.toString()}/> 
+                            <div className='p-5'>
+                            <h2 className='text-3xl'>{nft.metadata.name}</h2>
+                            <p className='mt-2 text-sm text-gray-500'>{nft.metadata.description}</p> 
+                                {/* this button is for NFT to be minted 
+                                1.show if [connected to wallet true , nft.owner = 0x0000000000000000000000000000000000000000]
+                                onClick links to Open Sea 
+                            <button onClick={() => mintNFT(nft.metadata.id)} hidden={!wallet_address || nft.owner != '0x0000000000000000000000000000000000000000'} className='h-10 bg-orange-500 font-bold p-2 text-white rounded-full 
+                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Mint NFT ({claimCondition?.[0].currencyMetadata.displayValue} Ξ)</button>
+                                */}
+
+
+                                {/* this button is for NFT owners
+                                1.show if [connected to wallet true , nft.owner = wallet_address]
+                                onClick links to Open Sea */}
+                                <Link href={collection.OpenSeaGalleryHTML+nft.metadata.id}>
+                            <button hidden={!wallet_address || nft.owner != wallet_address 
+                                            } className='h-10 bg-orange-500 font-bold p-2 text-white rounded-full 
+                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Sell NFT <img src={OpenSeaIMG.src} alt="home" className='w-5'/></button>
+                                </Link>
+                            {/* this button is for NFT owned by someone else
+                                1.show if [connected to wallet true && nft.owner != wallet_address && nft.owner = 0x0000000000000000000000000000000000000000]
+                                onClick links to Open Sea */}
+                            <button  hidden={ !wallet_address || nft.owner == wallet_address || nft.owner == '0x0000000000000000000000000000000000000000'
+                                            } className='h-10 bg-orange-500 font-bold p-2 text-white rounded-full 
+                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Buy or Make Offer</button>
+        
+                            </div>
+                            
+                        </div> 
+                            ): (<div className=' hidden'></div>)      
+                    ):(<div></div>)))}
+                
+                </div>
+                <hr className='my-2 border mt-20'/>
+                <div>
+                <h1 className='text-2xl font-bold font-mono'>More From This Collection</h1>
+                </div>
+                <div className='grid  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4'>
+                    {nfts?.map((nft)=>(
+                        nft.owner !== '0x0000000000000000000000000000000000000000' ?(
+                            nft.owner !== wallet_address ? (
                         <div className='flex flex-col items-center rounded-xl p-1 bg-slate-500/20 shadow-slate-600 shadow-2xl cursor-pointer '>
                              <RModalImage className='h-96 w-60 rounded-2xl object-cover' hideDownload='true'
                               small={nft.metadata.image?.toString()}
@@ -137,27 +186,34 @@ return (
                             <p className='mt-2 text-sm text-gray-500'>{nft.metadata.description}</p> 
                                 {/* this button is for NFT to be minted 
                                 1.show if [connected to wallet true , nft.owner = 0x0000000000000000000000000000000000000000]
-                                onClick links to Open Sea */}
+                                onClick links to Open Sea 
                             <button onClick={() => mintNFT(nft.metadata.id)} hidden={!wallet_address || nft.owner != '0x0000000000000000000000000000000000000000'} className='h-10 bg-orange-500 font-bold p-2 text-white rounded-full 
                                 mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Mint NFT ({claimCondition?.[0].currencyMetadata.displayValue} Ξ)</button>
+                                */}
+
+
                                 {/* this button is for NFT owners
                                 1.show if [connected to wallet true , nft.owner = wallet_address]
                                 onClick links to Open Sea */}
-                            <button hidden={!wallet_address || nft.owner != wallet_address || nft.owner != '0x0000000000000000000000000000000000000000'
+                                <Link href={collection.OpenSeaGalleryHTML+nft.metadata.id}>
+                            <button hidden={!wallet_address || nft.owner != wallet_address 
                                             } className='h-10 bg-orange-500 font-bold p-2 text-white rounded-full 
-                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Sell NFT ({})</button>
+                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Sell NFT </button>
+                                </Link>
                             {/* this button is for NFT owned by someone else
                                 1.show if [connected to wallet true && nft.owner != wallet_address && nft.owner = 0x0000000000000000000000000000000000000000]
                                 onClick links to Open Sea */}
-                            <button  hidden={ !wallet_address && nft.owner == wallet_address || nft.owner == '0x0000000000000000000000000000000000000000'
+                                <Link href={collection.OpenSeaGalleryHTML+nft.metadata.id}>
+                            <button  hidden={ !wallet_address || nft.owner == wallet_address || nft.owner == '0x0000000000000000000000000000000000000000'
                                             } className='h-10 bg-orange-500 font-bold p-2 text-white rounded-full 
-                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Buy or Make Offer</button>
+                                mt-2 shadow-md shadow-orange-500/50 hover:shadow-slate-400'>Buy or Make Offer<img src={OpenSeaIMG.src} alt="home" className='w-5'/></button>
+                                </Link>
         
                             </div>
                             
                         </div> 
-                        
-                    ))}
+                            ): (<div className=' hidden'></div>)      
+                    ):(<div></div>)))}
                 
                 </div>
             </main>
@@ -182,6 +238,7 @@ export const getServerSideProps:GetServerSideProps= async ({params}) => {
         contractAddr,
         nftCollectionName,
         description,
+        OpenSeaGalleryHTML,
         mainImage{
              asset
         },

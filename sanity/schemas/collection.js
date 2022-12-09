@@ -25,6 +25,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'OpenSeaGalleryHTML',
+      title: 'Open Sea Gallery Address',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',

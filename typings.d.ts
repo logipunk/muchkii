@@ -22,6 +22,7 @@ export interface Collection{
   description:string
   contractAddr:string
   nftCollectionName:string
+  OpenSeaGalleryHTML:string
   mainImage:Image
   previewImage:Image
   slug:{
